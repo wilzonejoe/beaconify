@@ -15,6 +15,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.ad4screen.sdk.A4S;
+import com.ad4screen.sdk.Constants;
 import com.beaconify.detect.beaconify.Model.Beacon;
 
 import java.util.ArrayList;
@@ -68,7 +70,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         A4S.get(this).setPushNotificationLocked(false);
-        setContentView(R.layout.activity_beacon);
+        setContentView(R.layout.activity_main);
 
         // Request location permission for beacons features
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -79,7 +81,7 @@ public class MainActivity extends Activity {
         mBeaconList.setHasFixedSize(true);
         mBeaconList.setLayoutManager(new LinearLayoutManager(this));
         mBeaconList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        mBeaconAdapter = new BeaconAdapter(mBeacons);
+        mBeaconAdapter = new BeaconViewAdapter(mBeacons);
         mBeaconList.setAdapter(mBeaconAdapter);
 
         findViewById(R.id.buttonClearBeacons).setOnClickListener(new View.OnClickListener() {
