@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.beaconify.detect.beaconify">
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+    <!-- use permission on Android M -->
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,21 +21,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".MainActivity"/>
+
+        <activity android:name=".ResultActivity"/>
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver
-            android:name=".BeaconReceiver"
-            android:permission="com.accengage.samples.beacons.permission.A4S_SEND">
-            <intent-filter>
-                <action android:name="com.ad4screen.sdk.intent.action.TRIGGER"/>
-                <category android:name="com.ad4screen.sdk.intent.category.BEACON_NOTIFICATIONS"/>
-            </intent-filter>
-        </receiver>
+
+        <service
+            android:name="com.aprilbrother.aprilbrothersdk.service.BeaconService"
+            android:exported="false" />
+        <service
+            android:name="com.aprilbrother.aprilbrothersdk.services.ABeaconUartService"
+            android:exported="false" />
+        <service
+            android:name="com.aprilbrother.aprilbrothersdk.services.UartService"
+            android:exported="false" />
+        <service
+            android:name="com.beaconify.detect.beaconify.NotifyService"
+            android:exported="false"></service>
     </application>
 
 </manifest>
