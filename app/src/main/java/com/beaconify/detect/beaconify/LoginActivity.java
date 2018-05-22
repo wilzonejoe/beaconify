@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Cache.token = loginResponseSuccess.token;
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -124,6 +125,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Cache.token = loginResponseSuccess.token;
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
+                        finish();
                         break;
                     case 400:
                         LoginResponseFail loginResponseFail = (LoginResponseFail) JsonHelper.getInstance().toObject(result.body().string(), LoginResponseFail.class);

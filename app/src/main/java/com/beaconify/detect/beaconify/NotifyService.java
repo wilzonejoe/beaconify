@@ -16,10 +16,8 @@ import com.aprilbrother.aprilbrothersdk.Beacon;
 import com.aprilbrother.aprilbrothersdk.BeaconManager;
 import com.aprilbrother.aprilbrothersdk.BeaconManager.MonitoringListener;
 import com.aprilbrother.aprilbrothersdk.Region;
-import com.beaconify.detect.beaconify.Helper.DialogHelper;
 import com.beaconify.detect.beaconify.Helper.JsonHelper;
 import com.beaconify.detect.beaconify.Model.Beacons.BeaconResponse;
-import com.beaconify.detect.beaconify.Model.Login.LoginResponseSuccess;
 import com.beaconify.detect.beaconify.Networking.HttpRequest;
 
 import java.text.MessageFormat;
@@ -163,10 +161,9 @@ public class NotifyService extends Service {
             try {
                 switch (result.code()) {
                     case 200:
-                        String x = result.body().string();
                         BeaconResponse beaconResponse = (BeaconResponse) JsonHelper.getInstance().toObject(result.body().string(), BeaconResponse.class);
-                        if (beaconResponse.getClassRoom() != null && beaconResponse.getClassRoom().length > 0)
-                            showNotification(getApplicationContext(), beaconResponse.getClassRoom()[0].getRoomNo(), "Welcome to " + beaconResponse.getClassRoom()[0].getPaperName());
+                        if (beaconResponse.getClassRoom() != null && beaconResponse.getClassRoom().size() > 0)
+                            showNotification(getApplicationContext(), beaconResponse.getClassRoom().get(0).getRoomNo(), "Welcome to " + beaconResponse.getClassRoom().get(0).getPaperName());
                         break;
                     default:
                         return;
